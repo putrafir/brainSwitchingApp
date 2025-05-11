@@ -15,6 +15,9 @@
 		04FE7A862DD1236600D51E3C /* brain_switchingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FE7A852DD1236600D51E3C /* brain_switchingAppTests.swift */; };
 		04FE7A902DD1236600D51E3C /* brain_switchingAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FE7A8F2DD1236600D51E3C /* brain_switchingAppUITests.swift */; };
 		04FE7A922DD1236600D51E3C /* brain_switchingAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FE7A912DD1236600D51E3C /* brain_switchingAppUITestsLaunchTests.swift */; };
+		04FE7AA02DD1274F00D51E3C /* TimeDelayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FE7A9F2DD1274F00D51E3C /* TimeDelayView.swift */; };
+		04FE7AA22DD127C500D51E3C /* CalendarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FE7AA12DD127C500D51E3C /* CalendarHeaderView.swift */; };
+		04FE7AA42DD127FD00D51E3C /* TaskCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FE7AA32DD127FD00D51E3C /* TaskCardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +50,9 @@
 		04FE7A8B2DD1236600D51E3C /* brain_switchingAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = brain_switchingAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		04FE7A8F2DD1236600D51E3C /* brain_switchingAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = brain_switchingAppUITests.swift; sourceTree = "<group>"; };
 		04FE7A912DD1236600D51E3C /* brain_switchingAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = brain_switchingAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		04FE7A9F2DD1274F00D51E3C /* TimeDelayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeDelayView.swift; sourceTree = "<group>"; };
+		04FE7AA12DD127C500D51E3C /* CalendarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHeaderView.swift; sourceTree = "<group>"; };
+		04FE7AA32DD127FD00D51E3C /* TaskCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +103,7 @@
 		04FE7A702DD1236500D51E3C /* brain_switchingApp */ = {
 			isa = PBXGroup;
 			children = (
+				04FE7A9E2DD1272400D51E3C /* ItemViews */,
 				04FE7A712DD1236500D51E3C /* brain_switchingAppApp.swift */,
 				04FE7A732DD1236500D51E3C /* ContentView.swift */,
 				04FE7A752DD1236500D51E3C /* Item.swift */,
@@ -130,6 +137,16 @@
 				04FE7A912DD1236600D51E3C /* brain_switchingAppUITestsLaunchTests.swift */,
 			);
 			path = brain_switchingAppUITests;
+			sourceTree = "<group>";
+		};
+		04FE7A9E2DD1272400D51E3C /* ItemViews */ = {
+			isa = PBXGroup;
+			children = (
+				04FE7A9F2DD1274F00D51E3C /* TimeDelayView.swift */,
+				04FE7AA12DD127C500D51E3C /* CalendarHeaderView.swift */,
+				04FE7AA32DD127FD00D51E3C /* TaskCardView.swift */,
+			);
+			path = ItemViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,8 +279,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04FE7AA02DD1274F00D51E3C /* TimeDelayView.swift in Sources */,
+				04FE7AA42DD127FD00D51E3C /* TaskCardView.swift in Sources */,
 				04FE7A742DD1236500D51E3C /* ContentView.swift in Sources */,
 				04FE7A762DD1236500D51E3C /* Item.swift in Sources */,
+				04FE7AA22DD127C500D51E3C /* CalendarHeaderView.swift in Sources */,
 				04FE7A722DD1236500D51E3C /* brain_switchingAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
