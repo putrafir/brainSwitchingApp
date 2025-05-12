@@ -1,16 +1,21 @@
 import SwiftUI
 
+extension Date {
+    func isSameDay(as otherDate: Date) -> Bool {
+        let calendar = Calendar.current
+        return calendar.isDate(self, inSameDayAs: otherDate)
+    }
+}
+
 struct ContentView: View {
     @State private var selectedDate = Date()
     @State private var currentMonthOffset = 0
+    @State private var showAddSheet = false
+    @State private var daftarJadwal: [Jadwal] = []
     
     
-    let tasks: [TaskItem] = [
-        TaskItem(time: "08.00", title: "Task name", subtitle: "Study", color: .blue),
-        TaskItem(time: "10.00", title: "Task name", subtitle: "Work", color: .red)
-    ]
-
     var body: some View {
+
         VStack(spacing: 0) {
             CalendarHeader(selectedDate: $selectedDate, currentMonthOffset: $currentMonthOffset)
                 .padding(.vertical)
@@ -25,19 +30,61 @@ struct ContentView: View {
                             .font(.title3)
                             .bold()
                             .padding(.top, 16)
-                 
-                        TaskCardView(time: "08.00", task: tasks[0])
+                            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/,alignment: .leading)
                         
+                        let daftarJadwalSelected = daftarJadwal
+                            .filter { $0.tanggal.isSameDay(as: selectedDate)}
+
+                        if daftarJadwalSelected.isEmpty{
+                            Text("Belum ada jadwal di tanggal ini")
+                        }else{
+                            ForEach(daftarJadwalSelected) { jadwal in
+                                VStack{
+                                    TaskCardView(jadwal: Jadwal(namaJadwal: jadwal.namaJadwal, tanggal: jadwal.tanggal, waktuMulai: jadwal.waktuMulai, waktuSelesai: jadwal.waktuSelesai, tipe: jadwal.tipe))
+                                }
+                    
+                            }
+                        }
+                   
                        
-                        TimeDelayView(from: "09.00", to: "09.30")
-                        
-                       
-                        TaskCardView(time: "10.00", task: tasks[1])
+//                        TimeDelayView(from: "09.00", to: "09.30")
+//                        
+//                       
+//                        TaskCardView(time: "10.00", task: tasks[1])
+//                        
+//                        TaskCardView(time: "08.00", task: tasks[0])
+//                        
+//                       
+//                        TimeDelayView(from: "09.00", to: "09.30")
+//                        
+//                       
+//                        TaskCardView(time: "10.00", task: tasks[1])
+
                     }
                     .padding(.horizontal)
                 }
+                
+                
+                VStack{
+                    Spacer();
+                        Button(action: {
+                            showAddSheet=true
+                        }){
+                            Image(systemName: "plus")
+                                .font(.system(size: 24))
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(Color("Purple"))
+                                .clipShape(Circle())
+                                .shadow(radius: 4)
+                        }.padding()
+                  
+                }.sheet(isPresented: $showAddSheet){
+                    AddJadwalView(showSheet: $showAddSheet, daftarJadwal: $daftarJadwal,selectedDate: selectedDate).presentationDetents([.fraction(0.5),.medium])
+                }
+               
+                
             }
-
         }
     }
 }
@@ -45,3 +92,5 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
+
+

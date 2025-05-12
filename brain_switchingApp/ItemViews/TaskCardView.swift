@@ -7,26 +7,32 @@
 
 import SwiftUI
 
-struct TaskItem {
-    let time: String
-    let title: String
-    let subtitle: String
-    let color: Color
-}
+//struct TaskItem {
+//    let time: String
+//    let title: String
+//    let subtitle: String
+//    let color: Color
+//}
 
 struct TaskCardView: View {
-    let time: String
-    let task: TaskItem
+    
+    let jadwal:Jadwal
+    
+//    let time: String
+//    let task: TaskItem
+//    let daftarJadwal: Jadwal
+//    
+    
     
     var body: some View {
         HStack(alignment: .top) {
             VStack{
-                Text(time)
+                Text(jadwal.waktuMulai.formatted(.dateTime.hour().minute()))
                     .font(.subheadline)
                     .frame(width: 50, alignment: .leading)
                     .foregroundColor(.gray)
                 Spacer()
-                Text(time)
+                Text(jadwal.waktuSelesai.formatted(.dateTime.hour().minute()))
                     .font(.subheadline)
                     .frame(width: 50, alignment: .leading)
                     .foregroundColor(.gray)
@@ -35,12 +41,12 @@ struct TaskCardView: View {
            
             
             VStack(alignment: .leading, spacing: 8) {
-                Text(task.title)
+                Text(jadwal.namaJadwal)
                     .font(.subheadline)
                     .bold()
                 HStack{
-                    Text(task.subtitle)
-                        .foregroundColor(task.color)
+                    Text(jadwal.tipe)
+                        .foregroundColor(jadwal.tipe == "Kerja" ? Color.red : Color.blue)
                    
                     Text("Detail")
                         .font(.footnote)

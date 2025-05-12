@@ -57,7 +57,11 @@ struct CalendarHeader: View {
                                 .foregroundColor(calendar.isDate(date, inSameDayAs: selectedDate) ? .white : .primary)
                                 .clipShape(Circle())
                                 .onTapGesture {
-                                    selectedDate = date
+                                    let calendar=Calendar.current
+                                    if let fixedDate = calendar.date(bySettingHour: 12, minute: 0, second: 0, of: date){
+                                        selectedDate = fixedDate
+                                    }
+                                   
                                 }
                         }
                     }
@@ -73,7 +77,7 @@ struct CalendarHeader: View {
 
     func dayName(for date: Date) -> String {
         let weekday = Calendar.current.component(.weekday, from: date)
-        return days[(weekday + 5) % 7] // Adjust so Monday = "M"
+        return days[(weekday + 5) % 7] 
     }
 
     func generateDaysInMonth(for date: Date) -> [Date] {
