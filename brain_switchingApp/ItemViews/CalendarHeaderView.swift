@@ -69,9 +69,9 @@ struct CalendarHeader: View {
                 .padding(.horizontal)
             }.padding(.top,20)
 
-            Text("\(selectedDate.formatted(.dateTime.weekday(.wide).day().month().year()))")
-                .font(.subheadline)
-                .foregroundColor(.gray)
+//            Text("\(selectedDate.formatted(.dateTime.weekday(.wide).day().month().year()))")
+//                .font(.subheadline)
+//                .foregroundColor(.gray)
         }
     }
 
