@@ -38,11 +38,30 @@ struct ContentView: View {
                         if daftarJadwalSelected.isEmpty{
                             Text("Belum ada jadwal di tanggal ini")
                         }else{
-                            ForEach(daftarJadwalSelected) { jadwal in
-                                VStack{
-                                    TaskCardView(jadwal: Jadwal(namaJadwal: jadwal.namaJadwal, tanggal: jadwal.tanggal, waktuMulai: jadwal.waktuMulai, waktuSelesai: jadwal.waktuSelesai, tipe: jadwal.tipe))
+//                            ForEach(daftarJadwalSelected) { jadwal in
+//                                VStack{
+//                                    TaskCardView(jadwal: Jadwal(namaJadwal: jadwal.namaJadwal, tanggal: jadwal.tanggal, waktuMulai: jadwal.waktuMulai, waktuSelesai: jadwal.waktuSelesai, tipe: jadwal.tipe))
+//                                }
+//                    
+//                            }
+                            
+                            let sortedJadwal = daftarJadwalSelected.sorted { $0.waktuMulai < $1.waktuMulai }
+
+                            ForEach(Array(sortedJadwal.enumerated()), id: \.1.id) { index, jadwal in
+                                VStack(alignment: .leading, spacing: 8) {
+                                  
+                                    if index > 0 {
+                                        let prev = sortedJadwal[index - 1]
+                                        if jadwal.tipe != prev.tipe {
+                                            TimeDelayView(
+                                                from: prev.waktuSelesai.formatted(date: .omitted, time: .shortened),
+                                                to: jadwal.waktuMulai.formatted(date: .omitted, time: .shortened)
+                                            )
+                                        }
+                                    }
+                                    
+                                    TaskCardView(jadwal: jadwal)
                                 }
-                    
                             }
                         }
                    
