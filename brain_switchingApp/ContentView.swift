@@ -26,12 +26,36 @@ struct ContentView: View {
                 Color("Gray").ignoresSafeArea()
                 ScrollView {
                     VStack(alignment: .leading, spacing: 24) {
-                        Text("Schedule")
-                            .font(.title3)
-                            .bold()
-                            .padding(.top, 16)
-                            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/,alignment: .leading)
                         
+                        HStack{
+                            Text("Schedule")
+                                .font(.title3)
+                                .bold()
+                          
+                               
+                            Spacer()
+                            
+                            Button(action: {
+                                   showAddSheet = true
+                               }) {
+//                                   Image(systemName: "plus")
+//                                       .font(.title3)
+                                   Text("Add")
+                               }
+                        }.padding(.top,16).sheet(isPresented: $showAddSheet){
+                                           AddJadwalView(showSheet: $showAddSheet, daftarJadwal: $daftarJadwal,selectedDate: selectedDate).presentationDetents([.fraction(0.5),.medium])
+                                    }
+                    
+//
+//                            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/,alignment: .leading).toolbar {
+//                                ToolbarItem(placement: .navigationBarTrailing) {
+//                                    Button(action: {
+//                                        showAddSheet = true
+//                                    }) {
+//                                        Image(systemName: "plus")
+//                                    }
+//                                }
+//                            }
                         let daftarJadwalSelected = daftarJadwal
                             .filter { $0.tanggal.isSameDay(as: selectedDate)}
 
@@ -52,7 +76,9 @@ struct ContentView: View {
                                   
                                     if index > 0 {
                                         let prev = sortedJadwal[index - 1]
-                                        if jadwal.tipe != prev.tipe {
+                                        let timeGap = jadwal.waktuMulai.timeIntervalSince(prev.waktuSelesai)
+                                        
+                                        if jadwal.tipe != prev.tipe && timeGap < 3600{
                                             TimeDelayView(
                                                 from: prev.waktuSelesai.formatted(date: .omitted, time: .shortened),
                                                 to: jadwal.waktuMulai.formatted(date: .omitted, time: .shortened)
@@ -65,42 +91,30 @@ struct ContentView: View {
                             }
                         }
                    
-                       
-//                        TimeDelayView(from: "09.00", to: "09.30")
-//                        
-//                       
-//                        TaskCardView(time: "10.00", task: tasks[1])
-//                        
-//                        TaskCardView(time: "08.00", task: tasks[0])
-//                        
-//                       
-//                        TimeDelayView(from: "09.00", to: "09.30")
-//                        
-//                       
-//                        TaskCardView(time: "10.00", task: tasks[1])
+
 
                     }
                     .padding(.horizontal)
                 }
                 
                 
-                VStack{
-                    Spacer();
-                        Button(action: {
-                            showAddSheet=true
-                        }){
-                            Image(systemName: "plus")
-                                .font(.system(size: 24))
-                                .foregroundColor(.white)
-                                .padding()
-                                .background(Color("Purple"))
-                                .clipShape(Circle())
-                                .shadow(radius: 4)
-                        }.padding()
-                  
-                }.sheet(isPresented: $showAddSheet){
-                    AddJadwalView(showSheet: $showAddSheet, daftarJadwal: $daftarJadwal,selectedDate: selectedDate).presentationDetents([.fraction(0.5),.medium])
-                }
+//                VStack{
+//                    Spacer();
+//                        Button(action: {
+//                            showAddSheet=true
+//                        }){
+//                            Image(systemName: "plus")
+//                                .font(.system(size: 24))
+//                                .foregroundColor(.white)
+//                                .padding()
+//                                .background(Color("Purple"))
+//                                .clipShape(Circle())
+//                                .shadow(radius: 4)
+//                        }.padding()
+//                  
+//                }.sheet(isPresented: $showAddSheet){
+//                    AddJadwalView(showSheet: $showAddSheet, daftarJadwal: $daftarJadwal,selectedDate: selectedDate).presentationDetents([.fraction(0.5),.medium])
+//                }
                
                 
             }
