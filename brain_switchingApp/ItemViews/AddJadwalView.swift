@@ -12,8 +12,6 @@ struct AddJadwalView: View {
     var selectedDate:Date
     
     @State private var namaJadwal = ""
-    
-    //add last 
 
     @State private var waktuMulai = Date()
     @State private var waktuSelesai = Date()
@@ -46,8 +44,6 @@ struct AddJadwalView: View {
                         tipe: tipe
                     )
                     daftarJadwal.append(jadwalBaru)
-                    print(daftarJadwal)
-                    
                     showSheet = false
                 }) {
                     Text("Simpan Jadwal")
@@ -82,16 +78,6 @@ struct AddJadwalView: View {
 //            }
             .navigationBarTitleDisplayMode(.inline)
         }
-    }
-    func cekJadwalCrush(timeStart: Date,timeEnd: Date, timeInput: Date) -> Bool{
-            // Check if the checkDate is between startDate and endDate
-            if timeInput >= timeStart && timeInput <= timeEnd {
-                return true
-            } else {
-                return false
-            }
-
-        
     }
 }
 
