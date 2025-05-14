@@ -53,7 +53,6 @@ struct ContentView: View {
                                     if index > 0 {
                                         let prev = sortedJadwal[index - 1]
                                         if jadwal.tipe != prev.tipe {
-                                            let _ = print(cekJadwalCrush(timeStart: prev.waktuMulai, timeEnd:prev.waktuSelesai, timeInput: jadwal.waktuMulai))
                                             
                                             TimeDelayView(
                                                 from: prev.waktuSelesai.formatted(date: .omitted, time: .shortened),
