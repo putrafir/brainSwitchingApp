@@ -9,7 +9,11 @@ import SwiftUI
 struct AddJadwalView: View {
     @Binding var showSheet: Bool
     @Binding var daftarJadwal: [Jadwal]
-    @State var showAllert = false
+    @State var showAllert = false {
+        didSet {
+            print("showAllert = \(showAllert)")
+        }
+    }
     var selectedDate:Date
     
     @State private var namaJadwal = ""
@@ -49,6 +53,7 @@ struct AddJadwalView: View {
                             tipe: tipe
                         )
                         daftarJadwal.append(jadwalBaru)
+                        showSheet=false
                     }else{
                         print("array ada isinya \(daftarJadwal)")
                         for jadwalCheck in daftarJadwal {
@@ -56,29 +61,36 @@ struct AddJadwalView: View {
                             if(cekJadwalCrush(timeStart: jadwalCheck.waktuMulai, timeEnd: jadwalCheck.waktuSelesai, timeInput: waktuMulai)){
                                 print("jadwal bentrok \(cekJadwalCrush(timeStart: jadwalCheck.waktuMulai, timeEnd: jadwalCheck.waktuSelesai, timeInput: waktuMulai)))")
                                 showAllert = true
+                                //                                print("allert if 1 \(showAllert)")
                             }
-                            else {
-                                if(cekJadwalCrush(timeStart: jadwalCheck.waktuMulai, timeEnd: jadwalCheck.waktuSelesai, timeInput: waktuSelesai)){
-                                    print("jadwal bentrok \(cekJadwalCrush(timeStart: jadwalCheck.waktuMulai, timeEnd: jadwalCheck.waktuSelesai, timeInput: waktuMulai)))")
-                                    showAllert = true
-                                }
-                                else{
-                                    let jadwalBaru = Jadwal(
-                                        namaJadwal: namaJadwal,
-                                        tanggal: selectedDate,
-                                        waktuMulai: waktuMulai,
-                                        waktuSelesai: waktuSelesai,
-                                        tipe: tipe
-                                    )
-                                    daftarJadwal.append(jadwalBaru)
-//                                    print(daftarJadwal)
-                                }
+                            else if(cekJadwalCrush(timeStart: jadwalCheck.waktuMulai, timeEnd: jadwalCheck.waktuSelesai, timeInput: waktuSelesai)){
+                                print("jadwal bentrok \(cekJadwalCrush(timeStart: jadwalCheck.waktuMulai, timeEnd: jadwalCheck.waktuSelesai, timeInput: waktuMulai)))")
+                                showAllert = true
+                                //                                    print("allert if 2 \(showAllert)")
                             }
+                            else if (cekJadwalCrush(timeStart: jadwalCheck.waktuMulai, timeEnd: jadwalCheck.waktuSelesai, timeInput: waktuMulai) && cekJadwalCrush(timeStart: jadwalCheck.waktuMulai, timeEnd: jadwalCheck.waktuSelesai, timeInput: waktuSelesai)){
+                                print("jadwal bentrok \(cekJadwalCrush(timeStart: jadwalCheck.waktuMulai, timeEnd: jadwalCheck.waktuSelesai, timeInput: waktuMulai)))")
+                                showAllert = true
+                                //                                    print("allert if 2 \(showAllert)")
+                            }
+                            else{
+                                let jadwalBaru = Jadwal(
+                                    namaJadwal: namaJadwal,
+                                    tanggal: selectedDate,
+                                    waktuMulai: waktuMulai,
+                                    waktuSelesai: waktuSelesai,
+                                    tipe: tipe
+                                )
+                                daftarJadwal.append(jadwalBaru)
+                                //                                    print(daftarJadwal)
+                                showSheet = false
+                            }
+                            
                         }
                     }
                         
-                    
-                    showSheet = false
+                    print("allert bawah \(showAllert)")
+//                    showSheet = false
                 }) {
                     Text("Simpan Jadwal")
                         .foregroundColor(.white)
@@ -93,9 +105,14 @@ struct AddJadwalView: View {
                                Alert(
                                    title: Text("Jadwal bentrok"),
                                    message: Text("Cek Kembali Jadwal Anda"),
-                                   dismissButton: .default(Text("OK"))
+                                   dismissButton: .default(Text("OK")){
+                                     showAllert = false
+                                    print("allert \(showAllert)")
+                                   }
                                )
                            }
+              
+                
             }
             .navigationTitle("Tambah Jadwal")
 //            .toolbar{
@@ -123,14 +140,14 @@ struct AddJadwalView: View {
     func isDateInRange(startDate: Date, endDate: Date, checkDate: Date) -> Bool {
         let dateFormater = DateFormatter()
         dateFormater.dateFormat = "yyyy-MM-dd HH:mm"
-        var startDateChange = dateFormater.string(from: startDate)
-        var endDateChange = dateFormater.string(from: endDate)
-        var checkDateChange = dateFormater.string(from: checkDate)
-        var newCheckDate = dateFormater.date(from: checkDateChange)!
-        var newStartDate = dateFormater.date(from: startDateChange)!
-        var newEndDate = dateFormater.date(from: endDateChange)!
+        let startDateChange = dateFormater.string(from: startDate)
+        let endDateChange = dateFormater.string(from: endDate)
+        let checkDateChange = dateFormater.string(from: checkDate)
+        let newCheckDate = dateFormater.date(from: checkDateChange)!
+        let newStartDate = dateFormater.date(from: startDateChange)!
+        let newEndDate = dateFormater.date(from: endDateChange)!
         print("Tanggal Setelah dirubah \(startDateChange) ")
-        return newCheckDate >= newStartDate && newCheckDate <= newCheckDate
+        return newCheckDate >= newStartDate && newCheckDate <= newEndDate
     }
     func cekJadwalCrush(timeStart: Date,timeEnd: Date, timeInput: Date) -> Bool{
             // Check if the checkDate is between startDate and endDate
