@@ -10,13 +10,8 @@ struct AddJadwalView: View {
     @Binding var showSheet: Bool
     @Binding var daftarJadwal: [Jadwal]
     var selectedDate:Date
-//    var onScheduleUpdate: () -> Void
     var onJadwalAdded: () -> Void
-    
     @State private var namaJadwal = ""
-    
-    //add last 
-
     @State private var waktuMulai = Date()
     @State private var waktuSelesai = Date()
     @State private var tipe = "Kerja"
