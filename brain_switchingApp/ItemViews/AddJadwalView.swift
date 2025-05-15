@@ -15,7 +15,7 @@ struct AddJadwalView: View {
         }
     }
     var selectedDate:Date
-    
+    var onJadwalAdded: () -> Void
     @State private var namaJadwal = ""
     
     //add last
@@ -53,6 +53,7 @@ struct AddJadwalView: View {
                             tipe: tipe
                         )
                         daftarJadwal.append(jadwalBaru)
+                        onJadwalAdded()
                         showSheet=false
                     }else{
                         print("array ada isinya \(daftarJadwal)")

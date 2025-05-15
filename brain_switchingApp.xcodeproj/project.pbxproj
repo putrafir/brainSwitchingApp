@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		046A85822DD57FAF00B8CF6E /* TimeDelayNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046A85812DD57FAF00B8CF6E /* TimeDelayNotification.swift */; };
 		04888B872DD23CDF00366789 /* Jadwal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04888B862DD23CDF00366789 /* Jadwal.swift */; };
 		04888B892DD23D3900366789 /* AddJadwalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04888B882DD23D3900366789 /* AddJadwalView.swift */; };
 		04FE7A722DD1236500D51E3C /* brain_switchingAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FE7A712DD1236500D51E3C /* brain_switchingAppApp.swift */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		046A85812DD57FAF00B8CF6E /* TimeDelayNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeDelayNotification.swift; sourceTree = "<group>"; };
 		04888B862DD23CDF00366789 /* Jadwal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jadwal.swift; sourceTree = "<group>"; };
 		04888B882DD23D3900366789 /* AddJadwalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddJadwalView.swift; sourceTree = "<group>"; };
 		04FE7A6E2DD1236500D51E3C /* brain_switchingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = brain_switchingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,6 +86,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		046A85802DD57F3100B8CF6E /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				046A85812DD57FAF00B8CF6E /* TimeDelayNotification.swift */,
+			);
+			name = Notification;
+			path = Services/Notification;
+			sourceTree = "<group>";
+		};
 		04888B852DD23CC000366789 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +126,7 @@
 		04FE7A702DD1236500D51E3C /* brain_switchingApp */ = {
 			isa = PBXGroup;
 			children = (
+				046A85802DD57F3100B8CF6E /* Notification */,
 				04888B852DD23CC000366789 /* Models */,
 				04FE7A9E2DD1272400D51E3C /* ItemViews */,
 				04FE7A712DD1236500D51E3C /* brain_switchingAppApp.swift */,
@@ -293,6 +305,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				046A85822DD57FAF00B8CF6E /* TimeDelayNotification.swift in Sources */,
 				04FE7AA02DD1274F00D51E3C /* TimeDelayView.swift in Sources */,
 				04FE7AA42DD127FD00D51E3C /* TaskCardView.swift in Sources */,
 				04888B872DD23CDF00366789 /* Jadwal.swift in Sources */,
@@ -460,6 +473,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"brain_switchingApp/Preview Content\"";
+				DEVELOPMENT_TEAM = 6GXN5MP2UM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -496,6 +510,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"brain_switchingApp/Preview Content\"";
+				DEVELOPMENT_TEAM = 6GXN5MP2UM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -530,6 +545,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6GXN5MP2UM;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
@@ -552,6 +568,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6GXN5MP2UM;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;

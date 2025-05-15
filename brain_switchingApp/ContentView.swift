@@ -1,7 +1,6 @@
 import SwiftUI
 import UserNotifications
 
-
 extension Date {
     func isSameDay(as otherDate: Date) -> Bool {
         let calendar = Calendar.current
@@ -14,10 +13,8 @@ extension Date {
     }
 }
 
-
 struct ContentView: View {
     
-    let notificationDelegate = NotificationDelegate()
     
     
     @State private var selectedDate = Date()
@@ -25,8 +22,7 @@ struct ContentView: View {
     @State private var showAddSheet = false
     @State private var daftarJadwal: [Jadwal] = []
     @State private var showRestReminder = false
-
-    let restReminderTimeInterval: TimeInterval = 10 * 60 // 10 menit sebelum jeda
+    @State private var scheduledNotifications: Set<Date> = []
 
     var body: some View {
         VStack(spacing: 0) {
@@ -35,6 +31,8 @@ struct ContentView: View {
             
             Divider()
             
+       
+          
             ZStack {
                 Color("Gray").ignoresSafeArea()
                 
@@ -58,7 +56,11 @@ struct ContentView: View {
                             AddJadwalView(
                                 showSheet: $showAddSheet,
                                 daftarJadwal: $daftarJadwal,
-                                selectedDate: selectedDate
+                                selectedDate: selectedDate,
+                                onJadwalAdded: {
+                                          checkForRestReminder()
+                                          startTimer()  
+                                      }
                             )
                             .presentationDetents([.fraction(0.5), .medium])
                         }
@@ -95,9 +97,7 @@ struct ContentView: View {
             }
         }
         .onAppear {
-            
-            UNUserNotificationCenter.current().delegate = notificationDelegate
-            
+  
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
                 if granted {
                     print("Izin notifikasi diberikan")
@@ -106,37 +106,13 @@ struct ContentView: View {
                 }
             }
             
-//            let now = Date()
-//
-//            let jadwal1 = Jadwal(
-//                namaJadwal: "Belajar",
-//                tanggal: now,
-//                waktuMulai: now,
-//                waktuSelesai: Calendar.current.date(byAdding: .minute, value: 5, to: now)!,
-//                tipe: "Kerja"
-//            )
-//
-//            let jadwal2 = Jadwal(
-//                namaJadwal: "Main",
-//                tanggal: now,
-//                waktuMulai: Calendar.current.date(byAdding: .minute, value: 10, to: now)!,
-//                waktuSelesai: Calendar.current.date(byAdding: .minute, value: 40, to: now)!,
-//                tipe: "Belajar"
-//            )
-//            
-//          
-//                daftarJadwal = [jadwal1, jadwal2]
-//                selectedDate = now
-                checkForRestReminder()
-//             triggerRestNotification()
-
+            UNUserNotificationCenter.current().delegate = notificationDelegate
+            
+            checkForRestReminder()
             startTimer()
         }
     }
 
-    
-    
-   
     private func startTimer() {
         Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { _ in
             checkForRestReminder()
@@ -144,6 +120,7 @@ struct ContentView: View {
     }
 
    
+
     private func checkForRestReminder() {
         let sortedJadwal = daftarJadwal
             .filter { $0.tanggal.isSameDay(as: selectedDate) }
@@ -156,35 +133,21 @@ struct ContentView: View {
             let current = sortedJadwal[index]
             let timeGap = current.waktuMulai.timeIntervalSince(prev.waktuSelesai)
 
+     
             if current.tipe != prev.tipe && timeGap < 3600 {
-                if Date().isWithinTimeRange(of: prev.waktuSelesai, rangeInSeconds: restReminderTimeInterval) {
-                    print("Menjadwalkan notifikasi istirahat...")
-                    triggerRestNotification()
+                let triggerTime = Calendar.current.date(bySetting: .second, value: 0, of: prev.waktuSelesai) ?? prev.waktuSelesai
+
+                if triggerTime > Date() && !scheduledNotifications.contains(triggerTime) {
+                    scheduledNotifications.insert(triggerTime)
+                    scheduleRestNotification(at: triggerTime)
                 }
             }
         }
     }
+
 }
 
 
-
-
-func triggerRestNotification() {
-    let content = UNMutableNotificationContent()
-    content.title = "Waktunya Istirahat"
-    content.body = "Kamu waktunya time delay. Yuk istirahat sebentar!"
-    content.sound = .default
-
-   
-    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-
-    let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-    UNUserNotificationCenter.current().add(request) { error in
-        if let error = error {
-            print("Gagal mengirim notifikasi: \(error.localizedDescription)")
-        }
-    }
-}
 
 #Preview {
     ContentView()
@@ -192,12 +155,3 @@ func triggerRestNotification() {
 
 
 
-
-class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
-
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                willPresent notification: UNNotification,
-                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.banner, .sound])
-    }
-}
