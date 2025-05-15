@@ -10,6 +10,8 @@ struct AddJadwalView: View {
     @Binding var showSheet: Bool
     @Binding var daftarJadwal: [Jadwal]
     var selectedDate:Date
+//    var onScheduleUpdate: () -> Void
+    var onJadwalAdded: () -> Void
     
     @State private var namaJadwal = ""
     
@@ -46,7 +48,11 @@ struct AddJadwalView: View {
                         tipe: tipe
                     )
                     daftarJadwal.append(jadwalBaru)
-                    print(daftarJadwal)
+                    
+                  onJadwalAdded()
+                    
+
+                 
                     
                     showSheet = false
                 }) {

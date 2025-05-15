@@ -13,4 +13,6 @@ struct Jadwal: Identifiable {
     var waktuMulai: Date
     var waktuSelesai: Date
     var tipe: String
+    
+ 
 }
