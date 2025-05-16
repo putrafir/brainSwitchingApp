@@ -41,9 +41,9 @@ struct ContentView: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 24) {
                         HStack {
-//                            Text("Schedule")
-//                            /Users/mac/Documents/Workspace/brainswitchingapp2/Untitled/brain_switchingApp/ItemViews/DetailTaskView.swift            .font(.title3)
-//                                .bold()
+                         Text("Schedule")
+                            .font(.title3)
+                            .bold()
                             
                             Spacer()
                             
