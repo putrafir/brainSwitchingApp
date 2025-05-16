@@ -41,9 +41,9 @@ struct ContentView: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 24) {
                         HStack {
-                            Text("Schedule")
-                                .font(.title3)
-                                .bold()
+//                            Text("Schedule")
+//                            /Users/mac/Documents/Workspace/brainswitchingapp2/Untitled/brain_switchingApp/ItemViews/DetailTaskView.swift            .font(.title3)
+//                                .bold()
                             
                             Spacer()
                             
@@ -169,6 +169,7 @@ struct ContentView: View {
 
 
 
+
 func triggerRestNotification() {
     let content = UNMutableNotificationContent()
     content.title = "Waktunya Istirahat"
@@ -189,6 +190,8 @@ func triggerRestNotification() {
 #Preview {
     ContentView()
 }
+
+
 
 
 

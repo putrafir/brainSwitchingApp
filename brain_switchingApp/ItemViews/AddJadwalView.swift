@@ -28,11 +28,19 @@ struct AddJadwalView: View {
     
     var body: some View {
         NavigationView {
+            
             Form {
-                TextField("Nama Pekerjaan", text: $namaJadwal)
-               
-                DatePicker("Waktu Mulai", selection: $waktuMulai, displayedComponents: .hourAndMinute)
-                DatePicker("Waktu Selesai", selection: $waktuSelesai, displayedComponents: .hourAndMinute)
+                if(daftarJadwal.isEmpty){
+                    TextField("Nama Pekerjaan", text: $namaJadwal)
+                    DatePicker("Waktu Mulai", selection: $waktuMulai, displayedComponents: .hourAndMinute)
+                    DatePicker("Waktu Selesai", selection: $waktuSelesai, displayedComponents: .hourAndMinute)
+                } else {
+                    
+                    TextField("Nama Pekerjaan", text: $daftarJadwal[0].namaJadwal)
+                    DatePicker("Waktu Mulai", selection: $daftarJadwal[0].waktuMulai, displayedComponents: .hourAndMinute)
+                    DatePicker("Waktu Selesai", selection: $daftarJadwal[0].waktuSelesai, displayedComponents: .hourAndMinute)
+                }
+                
                 
                 Picker("Tipe Jadwal", selection: $tipe) {
                     ForEach(tipeJadwal, id: \.self) { tipe in
@@ -137,6 +145,11 @@ struct AddJadwalView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
     }
+    
+    //edit jadwal view
+    
+    
+    
     func isDateInRange(startDate: Date, endDate: Date, checkDate: Date) -> Bool {
         let dateFormater = DateFormatter()
         dateFormater.dateFormat = "yyyy-MM-dd HH:mm"
@@ -161,5 +174,7 @@ struct AddJadwalView: View {
 
         
     }
+    
+
 }
 

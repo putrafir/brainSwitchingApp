@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		04888B872DD23CDF00366789 /* Jadwal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04888B862DD23CDF00366789 /* Jadwal.swift */; };
 		04888B892DD23D3900366789 /* AddJadwalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04888B882DD23D3900366789 /* AddJadwalView.swift */; };
+		04A217322DD5A80F006FFFB6 /* DetailTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A217312DD5A80F006FFFB6 /* DetailTaskView.swift */; };
 		04FE7A722DD1236500D51E3C /* brain_switchingAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FE7A712DD1236500D51E3C /* brain_switchingAppApp.swift */; };
 		04FE7A742DD1236500D51E3C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FE7A732DD1236500D51E3C /* ContentView.swift */; };
 		04FE7A762DD1236500D51E3C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FE7A752DD1236500D51E3C /* Item.swift */; };
@@ -42,6 +43,7 @@
 /* Begin PBXFileReference section */
 		04888B862DD23CDF00366789 /* Jadwal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jadwal.swift; sourceTree = "<group>"; };
 		04888B882DD23D3900366789 /* AddJadwalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddJadwalView.swift; sourceTree = "<group>"; };
+		04A217312DD5A80F006FFFB6 /* DetailTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTaskView.swift; sourceTree = "<group>"; };
 		04FE7A6E2DD1236500D51E3C /* brain_switchingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = brain_switchingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04FE7A712DD1236500D51E3C /* brain_switchingAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = brain_switchingAppApp.swift; sourceTree = "<group>"; };
 		04FE7A732DD1236500D51E3C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				04FE7AA12DD127C500D51E3C /* CalendarHeaderView.swift */,
 				04FE7AA32DD127FD00D51E3C /* TaskCardView.swift */,
 				04888B882DD23D3900366789 /* AddJadwalView.swift */,
+				04A217312DD5A80F006FFFB6 /* DetailTaskView.swift */,
 			);
 			path = ItemViews;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 				04888B872DD23CDF00366789 /* Jadwal.swift in Sources */,
 				04FE7A742DD1236500D51E3C /* ContentView.swift in Sources */,
 				04FE7A762DD1236500D51E3C /* Item.swift in Sources */,
+				04A217322DD5A80F006FFFB6 /* DetailTaskView.swift in Sources */,
 				04888B892DD23D3900366789 /* AddJadwalView.swift in Sources */,
 				04FE7AA22DD127C500D51E3C /* CalendarHeaderView.swift in Sources */,
 				04FE7A722DD1236500D51E3C /* brain_switchingAppApp.swift in Sources */,
