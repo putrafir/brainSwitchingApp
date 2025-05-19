@@ -17,7 +17,12 @@ struct ContentView: View {
     
     
     
-    @State private var selectedDate = Date()
+    @State private var selectedDate: Date = {
+        // Set to noon of current day to avoid time issues
+        let calendar = Calendar.current
+        let now = Date()
+        return calendar.date(bySettingHour: 12, minute: 0, second: 0, of: now) ?? now
+    }()
     @State private var currentMonthOffset = 0
     @State private var showAddSheet = false
     @State private var daftarJadwal: [Jadwal] = []
@@ -26,7 +31,7 @@ struct ContentView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            CalendarHeader(selectedDate: $selectedDate, currentMonthOffset: $currentMonthOffset)
+            CalendarHeader(selectedDate: $selectedDate, currentMonthOffset: $currentMonthOffset, daftarJadwal: daftarJadwal)
                 .padding(.vertical)
             
             Divider()
@@ -57,9 +62,10 @@ struct ContentView: View {
                                 showSheet: $showAddSheet,
                                 daftarJadwal: $daftarJadwal,
                                 selectedDate: selectedDate,
+                                isEditMode: false,
                                 onJadwalAdded: {
                                           checkForRestReminder()
-                                          startTimer()  
+                                          startTimer()
                                       }
                             )
                             .presentationDetents([.fraction(0.5), .medium])
@@ -74,20 +80,21 @@ struct ContentView: View {
                             let sortedJadwal = daftarJadwalSelected.sorted { $0.waktuMulai < $1.waktuMulai }
 
                             ForEach(Array(sortedJadwal.enumerated()), id: \.1.id) { index, jadwal in
-                                VStack(alignment: .leading, spacing: 8) {
-                                    if index > 0 {
-                                        let prev = sortedJadwal[index - 1]
-                                        let timeGap = jadwal.waktuMulai.timeIntervalSince(prev.waktuSelesai)
-                                        
-                                        if jadwal.tipe != prev.tipe && timeGap < 3600 {
-                                            TimeDelayView(
-                                                from: prev.waktuSelesai.formatted(date: .omitted, time: .shortened),
-                                                to: jadwal.waktuMulai.formatted(date: .omitted, time: .shortened)
-                                            )
-                                        }
+                                if index > 0 {
+                                    let prev = sortedJadwal[index - 1]
+                                    let timeGap = jadwal.waktuMulai.timeIntervalSince(prev.waktuSelesai)
+                                    
+                                    if jadwal.tipe != prev.tipe && timeGap < 3600 {
+                                        TimeDelayView(
+                                            from: prev.waktuSelesai.formatted(date: .omitted, time: .shortened),
+                                            to: jadwal.waktuMulai.formatted(date: .omitted, time: .shortened)
+                                        )
                                     }
                                 }
-                                TaskCardView(jadwal: jadwal)
+                                TaskCardView(jadwal: jadwal, daftarJadwal: $daftarJadwal,onJadwalAdded: {
+                                    checkForRestReminder()
+                                    startTimer()
+                                })
                             }
                         }
                     }
@@ -152,6 +159,3 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
-
-
-

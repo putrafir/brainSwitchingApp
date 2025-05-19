@@ -9,8 +9,13 @@ import SwiftUI
 struct CalendarHeader: View {
     @Binding var selectedDate: Date
     @Binding var currentMonthOffset: Int
+    let daftarJadwal: [Jadwal]  // Add this to access schedules
 
     var days: [String] { ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] }
+    
+    private func getScheduleCount(for date: Date) -> Int {
+        return daftarJadwal.filter { Calendar.current.isDate($0.tanggal, inSameDayAs: date) }.count
+    }
 
     var body: some View {
         let calendar = Calendar.current
@@ -31,7 +36,7 @@ struct CalendarHeader: View {
                     .font(.title3)
                     .bold()
 
-              Spacer()
+                Spacer()
 
                 Button(action: {
                     currentMonthOffset += 1
@@ -41,7 +46,6 @@ struct CalendarHeader: View {
             }
             .padding(.horizontal)
             
-            
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 8) {
                     ForEach(daysInMonth, id: \.self) { date in
@@ -49,35 +53,44 @@ struct CalendarHeader: View {
                             Text(dayName(for: date))
                                 .font(.caption2)
 
-                            Text("\(calendar.component(.day, from: date))")
-                                .font(.body)
-                                .fontWeight(.medium)
-                                .frame(width: 32, height: 32)
-                                .background(calendar.isDate(date, inSameDayAs: selectedDate) ? Color("Purple") : Color.clear)
-                                .foregroundColor(calendar.isDate(date, inSameDayAs: selectedDate) ? .white : .primary)
-                                .clipShape(Circle())
-                                .onTapGesture {
-                                    let calendar=Calendar.current
-                                    if let fixedDate = calendar.date(bySettingHour: 12, minute: 0, second: 0, of: date){
-                                        selectedDate = fixedDate
-                                    }
-                                   
+                            ZStack {
+                                Text("\(calendar.component(.day, from: date))")
+                                    .font(.body)
+                                    .fontWeight(.medium)
+                                    .frame(width: 32, height: 32)
+                                    .background(calendar.isDate(date, inSameDayAs: selectedDate) ? Color("Purple") : Color.clear)
+                                    .foregroundColor(calendar.isDate(date, inSameDayAs: selectedDate) ? .white : .primary)
+                                    .clipShape(Circle())
+                                
+                                let scheduleCount = getScheduleCount(for: date)
+                                if scheduleCount > 0 {
+                                    Text("\(scheduleCount)")
+                                        .font(.caption2)
+                                        .foregroundColor(.white)
+                                        .frame(width: 16, height: 16)
+                                        .background(Color.red)
+                                        .clipShape(Circle())
+                                        .offset(x: 12, y: -12)
                                 }
+                            }
+                            .onTapGesture {
+                                let calendar = Calendar.current
+                                if let fixedDate = calendar.date(bySettingHour: 12, minute: 0, second: 0, of: date) {
+                                    selectedDate = fixedDate
+                                }
+                            }
                         }
                     }
                 }
                 .padding(.horizontal)
-            }.padding(.top,20)
-
-//            Text("\(selectedDate.formatted(.dateTime.weekday(.wide).day().month().year()))")
-//                .font(.subheadline)
-//                .foregroundColor(.gray)
+            }
+            .padding(.top, 20)
         }
     }
 
     func dayName(for date: Date) -> String {
         let weekday = Calendar.current.component(.weekday, from: date)
-        return days[(weekday + 5) % 7] 
+        return days[(weekday + 5) % 7]
     }
 
     func generateDaysInMonth(for date: Date) -> [Date] {
