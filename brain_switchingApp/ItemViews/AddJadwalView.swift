@@ -155,6 +155,7 @@ struct AddJadwalView: View {
                         if !hasConflict {
                             daftarJadwal.append(jadwalBaru)
                             showSheet = false
+                            onJadwalAdded()
                         }
                     }
                 }) {
