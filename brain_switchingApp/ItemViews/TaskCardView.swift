@@ -134,7 +134,7 @@ struct TaskCardView: View {
                         .fontWeight(.semibold)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(jadwaldiklik.isCompleted ? Color.gray : Color.orange)
+                        .background(jadwaldiklik.isCompleted ? Color.gray : jadwaldiklik.tipe == "Kerja" ? Color.red : Color.blue)
                         .foregroundColor(.white)
                         .cornerRadius(6)
                 }

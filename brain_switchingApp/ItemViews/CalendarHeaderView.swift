@@ -28,6 +28,7 @@ struct CalendarHeader: View {
                     currentMonthOffset -= 1
                 }) {
                     Image(systemName: "chevron.left")
+                        .foregroundColor(Color("Purple"))
                 }
                 
                 Spacer()
@@ -42,6 +43,7 @@ struct CalendarHeader: View {
                     currentMonthOffset += 1
                 }) {
                     Image(systemName: "chevron.right")
+                        .foregroundColor(Color("Purple"))
                 }
             }
             .padding(.horizontal)

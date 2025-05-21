@@ -53,7 +53,7 @@ struct ContentView: View {
                             Button(action: {
                                 showAddSheet = true
                             }) {
-                                Text("Add")
+                                Text("Add").foregroundColor(Color("Purple"))
                             }
                         }
                         .padding(.top, 16)
