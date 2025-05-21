@@ -15,10 +15,8 @@ extension Date {
 
 struct ContentView: View {
     
-    
-    
     @State private var selectedDate: Date = {
-        // Set to noon of current day to avoid time issues
+       
         let calendar = Calendar.current
         let now = Date()
         return calendar.date(bySettingHour: 12, minute: 0, second: 0, of: now) ?? now
@@ -75,8 +73,32 @@ struct ContentView: View {
                             .filter { $0.tanggal.isSameDay(as: selectedDate) }
                         
                         if daftarJadwalSelected.isEmpty {
-                            Text("Belum ada jadwal di tanggal ini")
-                        } else {
+                            HStack{
+                                Spacer()
+                                VStack(spacing: 16) {
+                                    Image("illustrasi")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 250, height: 250)
+                                        .opacity(0.8)
+
+                                    Text("Tidak ada jadwal")
+                                        .font(.title3)
+                                        .fontWeight(.semibold)
+                                        .foregroundColor(.gray)
+
+                                    Text("Kamu belum memiliki jadwal pada tanggal ini.")
+                                        .font(.body)
+                                        .foregroundColor(.secondary)
+                                        .multilineTextAlignment(.center)
+                                        .padding(.horizontal, 32)
+                                }
+                                .padding(.top, 40)
+                                
+                                Spacer()
+                            }
+                        }
+ else {
                             let sortedJadwal = daftarJadwalSelected.sorted { $0.waktuMulai < $1.waktuMulai }
 
                             ForEach(Array(sortedJadwal.enumerated()), id: \.1.id) { index, jadwal in
