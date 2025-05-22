@@ -150,13 +150,13 @@ struct TaskCardView: View {
                         Button("Close") {
                             dismiss()
                         }
-                        .foregroundColor(.purple)
+                        .foregroundColor(Color("Purple"))
                     }
                     ToolbarItem(placement: .primaryAction) {
                         Button("Edit") {
                             showEditSheet = true
                         }
-                        .foregroundColor(.purple)
+                        .foregroundColor(Color("Purple"))
                     }
                 }
             }
